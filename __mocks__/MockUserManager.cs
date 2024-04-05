@@ -5,39 +5,52 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.IdentityModel.Abstractions;
 using Moq;
 
 namespace __mocks__;
 
-public class MockUserManager
+public class MockUserManager : IDisposable
 {
 
-    private readonly UserManager<ApplicationUser> _userManager;
-
-    public MockUserManager()
+    private UserStore<ApplicationUser, IdentityRole<Guid>, LunaLootMasterDbContext, Guid> _userStore;
+    private LunaLootMasterDbContext _dbContext;
+    private UserManager<ApplicationUser> _userManager;
+    public MockUserManager(MockLunaLootMasterDbContext m )
     {
-        var m = new MockLunaLootMasterDbContext();  
-        LunaLootMasterDbContext dbContext = m.GetContext();
-      
-        
-
-        IUserStore<ApplicationUser> mockUserStore = new UserStore<ApplicationUser, IdentityRole<Guid>,LunaLootMasterDbContext, Guid>(dbContext, null);
+        _dbContext = m.GetContext();
+        _userStore = new UserStore<ApplicationUser, IdentityRole<Guid>,LunaLootMasterDbContext, Guid>(_dbContext, null);
         IPasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
-        UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(mockUserStore, null, passwordHasher, null, null, null, null, null, null);
-        
-        _userManager = userManager;
+        _userManager = new UserManager<ApplicationUser>(_userStore, null, passwordHasher, null, null, null, null, null, new Logger<UserManager<ApplicationUser>>(NullLoggerFactory.Instance));
     }
-    public UserManager<ApplicationUser> GetUserManager()
+
+   
+
+     public UserManager<ApplicationUser> GetUserManager()
     {
         return _userManager;
     }
 
 
-    public  async void AddMockUsers(List<ApplicationUser> users)
+    public  async Task AddMockUsers(List<ApplicationUser> users)
     {
         foreach (var x in users)
         {
             await _userManager.CreateAsync(x);
         }
     }
+
+ 
+
+ 
+    public void Dispose()
+    { 
+      _dbContext.Dispose();
+      _userManager.Dispose();
+     
+    }
+
+  
 }

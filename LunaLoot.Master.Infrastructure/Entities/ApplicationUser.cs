@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LunaLoot.Master.Infrastructure.Entities;
 
-public class ApplicationUser: IdentityUser<Guid>
+public class ApplicationUser: IdentityUser<Guid>, IEquatable<ApplicationUser>
 {
   
     
@@ -13,5 +13,10 @@ public class ApplicationUser: IdentityUser<Guid>
         builder.Entity<ApplicationUser>()
             .HasIndex(u => u.Email)
             .IsUnique();
+    }
+
+    public bool Equals(ApplicationUser? other)
+    {
+        return Id.Equals(other.Id);
     }
 }
