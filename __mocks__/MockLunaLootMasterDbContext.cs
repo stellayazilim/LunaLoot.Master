@@ -5,13 +5,17 @@ namespace __mocks__;
 
 public class MockLunaLootMasterDbContext
 {
-    public static LunaLootMasterDbContext GetContext()
+
+    private readonly LunaLootMasterDbContext _dbContext;
+     public MockLunaLootMasterDbContext()
     {
         var options = new DbContextOptionsBuilder<LunaLootMasterDbContext>()
             .UseInMemoryDatabase(databaseName: "LunaLoot.Master")
             .Options;
-        var dbContext = new LunaLootMasterDbContext(options);
-
-        return dbContext;
+        _dbContext = new LunaLootMasterDbContext(options);
+    }
+    public  LunaLootMasterDbContext GetContext()
+    {
+        return _dbContext;
     }
 }

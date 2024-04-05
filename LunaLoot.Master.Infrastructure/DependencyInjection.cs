@@ -23,11 +23,14 @@ public static class DependencyInjection
              );
         });
 
-        services.AddIdentity<ApplicationUser, IdentityRole<Guid>>().AddEntityFrameworkStores<LunaLootMasterDbContext>()
+        services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<LunaLootMasterDbContext>()
             .AddSignInManager()
           
             .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
-          //  .AddUserValidator<ApplicationUser>()
+            //.AddUserValidator<ApplicationUser>()
             .AddDefaultTokenProviders()
             .AddRoles<IdentityRole<Guid>>();
         services.AddJwt(config);

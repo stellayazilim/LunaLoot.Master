@@ -23,5 +23,7 @@ public class TestLunarLootApi
             .Assembly
             .Should()
             .NotReference(typeof(ILunaLootApiStartupAssemblyReference).Assembly);
+        
+        
     }
 }
