@@ -3,15 +3,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace __mocks__;
 
-public class MockLunaLootMasterDbContext
+public class MockLunaLootMasterDbContext : IDisposable
 {
-    public static LunaLootMasterDbContext GetContext()
+
+    private  LunaLootMasterDbContext _dbContext;
+     public MockLunaLootMasterDbContext()
     {
         var options = new DbContextOptionsBuilder<LunaLootMasterDbContext>()
-            .UseInMemoryDatabase(databaseName: "LunaLoot.Master")
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
-        var dbContext = new LunaLootMasterDbContext(options);
-
-        return dbContext;
+        _dbContext = new LunaLootMasterDbContext(options);
     }
+
+
+
+
+    public  LunaLootMasterDbContext GetContext()
+    {
+        return _dbContext;
+    }
+
+ 
+
+
+    public void Dispose()
+    {
+        _dbContext.Database.EnsureDeleted();
+        _dbContext.Dispose();
+    }
+
+
 }
