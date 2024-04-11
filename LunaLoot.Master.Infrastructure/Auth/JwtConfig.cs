@@ -8,16 +8,17 @@ namespace LunaLoot.Master.Infrastructure.Auth;
 
 public static class JwtConfig
 {
-    public static IServiceCollection AddJwt(this IServiceCollection services, ConfigurationManager configurationManager)
+    public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configurationManager)
     {
         services.AddAuthentication(options =>
         {
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
             SecurityKey securityKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(configurationManager.GetSection("Jwt:Secret").Value!));
+                Encoding.UTF8.GetBytes(configurationManager.GetSection("Jwt:SigningKey").Value!));
             SigningCredentials signingCredentials = new SigningCredentials(
                 securityKey, SecurityAlgorithms.HmacSha512Signature);
             options.TokenValidationParameters = new TokenValidationParameters
@@ -27,6 +28,7 @@ public static class JwtConfig
                 ValidateIssuerSigningKey = true,
                 RequireExpirationTime = true,
                 RequireSignedTokens = true,
+                ClockSkew = TimeSpan.Zero,
                 ValidIssuer = configurationManager.GetSection("Jwt:Issuer").Value,
                 ValidAudience = configurationManager.GetSection("Jwt:Audience").Value,
                 TokenDecryptionKey = securityKey

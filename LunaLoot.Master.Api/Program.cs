@@ -1,21 +1,21 @@
-namespace LunaLoot.Api;
 
-public class LunaLootApi
-{
 
-    private readonly WebApplication _app;
-    public LunaLootApi(string[] args, Action<IServiceCollection, ConfigurationManager> options)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-        
-        options.Invoke(builder.Services, builder.Configuration);
-        
-        _app = builder.Build();
-        _app.MapGet("/", () => "Hello World!");
-    }
+using LunaLoot.Master.Api;
+using LunaLoot.Master.Application;
 
-    public async Task RunAsync()
-    {
-        await _app.RunAsync();
-    }
-}
+var builder = WebApplication.CreateBuilder();
+
+builder.Services.AddLunaLootMasterApplication(builder.Configuration);
+builder.Services.ConfigureStartupServices();
+
+
+
+var app = builder.Build();
+
+app.ConfigureWebApp();
+
+app.Run();
+
+
+
+

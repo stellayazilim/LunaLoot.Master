@@ -13,7 +13,7 @@ public static class DependencyInjection
     public static IServiceCollection 
         AddLunaLootMasterInfrastructure(
             this IServiceCollection services, 
-            ConfigurationManager config)
+            IConfiguration config)
     {
         services.AddDbContext<LunaLootMasterDbContext>(optionsBuilder =>
         {
@@ -28,12 +28,16 @@ public static class DependencyInjection
                 opts.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<LunaLootMasterDbContext>()
             .AddSignInManager()
-          
+
             .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
             //.AddUserValidator<ApplicationUser>()
             .AddDefaultTokenProviders()
             .AddRoles<IdentityRole<Guid>>();
+
+        //services.AddTransient<IPasswordHasher<ApplicationUser>, PasswordHasher>();
+        
         services.AddJwt(config);
+        
         return services;
     }
 }

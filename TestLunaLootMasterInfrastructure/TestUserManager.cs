@@ -1,6 +1,8 @@
 using __mocks__;
 using __stubs__;
 using FluentAssertions;
+using LunaLoot.Master.Domain.User;
+using LunaLoot.Master.Domain.User.ValueObjects;
 using LunaLoot.Master.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -15,12 +17,19 @@ public class TestUserManager
     public void ShouldHashPassword()
     {
         IPasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
-        var user = new ApplicationUser();
+        var user = new ApplicationUser()
+        {
+            FirstName = "jhown",
+            LastName = "doe",
+            RefreshTokens = new string[]{}
+        };
         user.PasswordHash = passwordHasher.HashPassword(user, "Test!12");
         user.PasswordHash.Should().NotBeEmpty();
         user.PasswordHash.Should().NotBeNull();
         user.PasswordHash.Should().NotBe("Test!12");
     }
+    
+    
     [Fact]
     public async void ShouldRegisterUser()
     {
@@ -30,10 +39,11 @@ public class TestUserManager
         var passwordHasher = m.GetUserManager().PasswordHasher;
         
         
-        var user = new ApplicationUser
+        var user = new ApplicationUser()
         {
-            Email = "jhondoe@example.com",
-
+            FirstName = "jhown",
+            LastName = "doe",
+            RefreshTokens = new string[]{}
         };
         user.PasswordHash =  passwordHasher.HashPassword(user, "Test!12");
         var res =  await m.GetUserManager().CreateAsync(user);
@@ -67,9 +77,9 @@ public class TestUserManager
         var ctx = new MockLunaLootMasterDbContext();
         var m = new MockUserManager(ctx);
         await m.AddMockUsers(UsersStubs.UserStubs());
-        ApplicationUser result = ( await m.GetUserManager().FindByEmailAsync("jhondoe@example.com"))!;
+        ApplicationUser result = ( await m.GetUserManager().FindByEmailAsync(UsersStubs.UserStubs()[0].Email!))!;
 
-        result.Email.Should().Be("jhondoe@example.com");
+        result.Email.Should().Be(UsersStubs.UserStubs()[0].Email!);
         ctx.Dispose();
         m  .Dispose();
     }
@@ -147,10 +157,34 @@ public class TestUserManager
         // ensure is not in role
         u = await userManager.GetUserManager().IsInRoleAsync(user!, "TestRole");
 
+      
         u.Should().Be(false);
         ctx        .Dispose();
         userManager.Dispose();
         roleManager.Dispose();
+        
+        
+        
+    }
+
+    
+    [Fact]
+    public async void ShouldTakeUserAggregateAsArg()
+    {
+        var ctx = new MockLunaLootMasterDbContext();
+        var userManager = new MockUserManager(ctx);
+        var passwordHasher = new PasswordHasher<User>();
+        var user = new User(UserId.Create(), "john", "doe", "jdoe@example.com", string.Empty, "12345", new List<RoleId>());
+
+        user.PasswordHash = passwordHasher.HashPassword(user, "1234");
+
+        var result = await userManager.GetUserManager().CreateAsync(user);
+
+        result.Succeeded.Should().Be(true);
+        
+        
+        ctx.Dispose();
+        userManager.Dispose();
     }
     
 }

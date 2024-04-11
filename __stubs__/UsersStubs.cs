@@ -13,13 +13,19 @@ public class UsersStubs
         {
             new ApplicationUser
             {
-                Email = "jhondoe@example.com",
+                FirstName = "jhon",
+                LastName = "doe",
+                Email = "jhon@doe.com",
+                RefreshTokens = new string[]{},
                 PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), "1234")
 
             },
             new ApplicationUser
             {
-                Email = "jhondoe2@example.com",
+                FirstName = "jhon1",
+                LastName = "doe1",
+                Email = "jhon1@doe.com",
+                RefreshTokens = new string[]{},
                 PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), "1234")
 
             }
