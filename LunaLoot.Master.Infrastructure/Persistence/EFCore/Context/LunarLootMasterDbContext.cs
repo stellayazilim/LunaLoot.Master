@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LunaLoot.Master.Infrastructure.Context;
+namespace LunaLoot.Master.Infrastructure.Persistence.EFCore.Context;
 
 public class LunaLootMasterDbContext: IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {

@@ -17,6 +17,7 @@ public class UsersStubs
                 LastName = "doe",
                 Email = "jhon@doe.com",
                 RefreshTokens = new string[]{},
+                MobilePhoneNumber =  "12345",
                 PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), "1234")
 
             },
@@ -26,6 +27,7 @@ public class UsersStubs
                 LastName = "doe1",
                 Email = "jhon1@doe.com",
                 RefreshTokens = new string[]{},
+                MobilePhoneNumber =  "12345",
                 PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), "1234")
 
             }

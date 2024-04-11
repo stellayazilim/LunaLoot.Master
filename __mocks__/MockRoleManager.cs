@@ -1,4 +1,4 @@
-﻿using LunaLoot.Master.Infrastructure.Context;
+﻿using LunaLoot.Master.Infrastructure.Persistence.EFCore.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

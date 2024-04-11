@@ -29,7 +29,7 @@ public record RegisterRequest
                 FirstName: request.FirstName,
                 LastName: request.LastName,
                 Email: request.Email,
-                MobilPhoneNumber: request.MobilePhoneNumber,
+                MobilePhoneNumber: request.MobilePhoneNumber,
                 Password: request.Password
             );
 

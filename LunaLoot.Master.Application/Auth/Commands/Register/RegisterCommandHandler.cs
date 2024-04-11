@@ -24,7 +24,7 @@ public class RegisterCommandHandler
             UserName = request.Email,
             FirstName = request.FirstName,
             LastName = request.LastName,
-            MobilePhoneNumber = request.MobilPhoneNumber,
+            MobilePhoneNumber = request.MobilePhoneNumber,
             RefreshTokens = new string[]{},
             Email = request.Email,
             
@@ -32,9 +32,6 @@ public class RegisterCommandHandler
         user.PasswordHash = hasher.HashPassword(user, request.Password);
 
         var result = await userManager.CreateAsync(user);
-
-
-    
-        return result.Succeeded ? new RegisterCommandResult() : new Error();
+        return result.Succeeded ? new RegisterCommandResult() : result.Errors.ToErrorOr().FirstError;
     }
 }

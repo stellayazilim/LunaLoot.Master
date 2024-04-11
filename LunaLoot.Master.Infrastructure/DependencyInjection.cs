@@ -1,5 +1,5 @@
 ﻿using LunaLoot.Master.Infrastructure.Auth;
-using LunaLoot.Master.Infrastructure.Context;
+using LunaLoot.Master.Infrastructure.Persistence.EFCore.Context;
 using LunaLoot.Master.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
