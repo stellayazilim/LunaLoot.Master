@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace __stubs__;
 
-public class UsersStubs
+public static class UsersStubs
 {
+    private static readonly PasswordHasher<ApplicationUser> PasswordHasher = new PasswordHasher<ApplicationUser>();
     public static List<ApplicationUser> UserStubs()
     {
 
-        var passwordHasher = new PasswordHasher<ApplicationUser>();
         return new List<ApplicationUser>
         {
             new ApplicationUser
@@ -18,7 +18,7 @@ public class UsersStubs
                 Email = "jhon@doe.com",
                 RefreshTokens = new string[]{},
                 MobilePhoneNumber =  "12345",
-                PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), "1234")
+                PasswordHash = PasswordHasher.HashPassword(new ApplicationUser(), "1234")
 
             },
             new ApplicationUser
@@ -28,9 +28,19 @@ public class UsersStubs
                 Email = "jhon1@doe.com",
                 RefreshTokens = new string[]{},
                 MobilePhoneNumber =  "12345",
-                PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), "1234")
+                PasswordHash = PasswordHasher.HashPassword(new ApplicationUser(), "1234")
 
             }
         };
     }
+
+    public static ApplicationUser UserStub => new()
+    {
+        FirstName = "jhon1",
+        LastName = "doe1",
+        Email = "jhon1@doe.com",
+        RefreshTokens = new string[]{},
+        MobilePhoneNumber =  "12345",
+        PasswordHash = PasswordHasher.HashPassword(new ApplicationUser(), "1234")
+    };
 }
