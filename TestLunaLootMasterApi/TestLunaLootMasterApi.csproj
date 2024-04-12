@@ -21,8 +21,4 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\LunaLoot.Master.Api.Startup\LunaLoot.Master.Api.Startup.csproj" />
-    </ItemGroup>
-
 </Project>

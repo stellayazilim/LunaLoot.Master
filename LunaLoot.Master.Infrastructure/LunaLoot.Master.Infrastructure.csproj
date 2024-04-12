@@ -21,4 +21,12 @@
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.5.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Persistence\EFCore\Mappings\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LunaLoot.Master.Domain\LunaLoot.Master.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

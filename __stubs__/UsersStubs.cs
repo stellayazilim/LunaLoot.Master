@@ -3,26 +3,44 @@ using Microsoft.AspNetCore.Identity;
 
 namespace __stubs__;
 
-public class UsersStubs
+public static class UsersStubs
 {
+    private static readonly PasswordHasher<ApplicationUser> PasswordHasher = new PasswordHasher<ApplicationUser>();
     public static List<ApplicationUser> UserStubs()
     {
 
-        var passwordHasher = new PasswordHasher<ApplicationUser>();
         return new List<ApplicationUser>
         {
             new ApplicationUser
             {
-                Email = "jhondoe@example.com",
-                PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), "1234")
+                FirstName = "jhon",
+                LastName = "doe",
+                Email = "jhon@doe.com",
+                RefreshTokens = new string[]{},
+                MobilePhoneNumber =  "12345",
+                PasswordHash = PasswordHasher.HashPassword(new ApplicationUser(), "1234")
 
             },
             new ApplicationUser
             {
-                Email = "jhondoe2@example.com",
-                PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), "1234")
+                FirstName = "jhon1",
+                LastName = "doe1",
+                Email = "jhon1@doe.com",
+                RefreshTokens = new string[]{},
+                MobilePhoneNumber =  "12345",
+                PasswordHash = PasswordHasher.HashPassword(new ApplicationUser(), "1234")
 
             }
         };
     }
+
+    public static ApplicationUser UserStub => new()
+    {
+        FirstName = "jhon1",
+        LastName = "doe1",
+        Email = "jhon1@doe.com",
+        RefreshTokens = new string[]{},
+        MobilePhoneNumber =  "12345",
+        PasswordHash = PasswordHasher.HashPassword(new ApplicationUser(), "1234")
+    };
 }
