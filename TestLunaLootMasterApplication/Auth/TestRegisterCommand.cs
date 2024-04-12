@@ -1,17 +1,13 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.Design.Serialization;
-using __stubs__;
-using AutoMapper.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
 using LunaLoot.Master.Application.Auth.Commands.Register;
+using LunaLoot.Master.Infrastructure.Entities;
 using FluentAssertions;
 using MediatR;
 using ErrorOr;
-using LunaLoot.Master.Infrastructure.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Moq;
-using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
+using __stubs__;
+using LunaLoot.Master.Infrastructure.Auth.Common.Services;
+
 
 namespace TestLunaLootMasterApplication.Auth;
 
@@ -20,9 +16,13 @@ public class TestRegisterCommand
 
     private readonly RegisterCommand registerCommand;
     private readonly RegisterCommandHandler _sut;
-    private readonly Mock<UserManager<ApplicationUser>> mockUserManager = new(Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null);
+    private readonly Mock<UserManager<ApplicationUser>> mockUserManager = 
+        new(Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null);
+    private readonly Mock<ApplicationPasswordHasher> mockPasswordHasher = new();
     private const string password = "12345678";
     private readonly ApplicationUser user = UsersStubs.UserStub;
+    
+    
     public TestRegisterCommand()
     {
 
@@ -35,7 +35,7 @@ public class TestRegisterCommand
         );
 
 
-        _sut = new RegisterCommandHandler(mockUserManager.Object);
+        _sut = new RegisterCommandHandler(mockUserManager.Object, mockPasswordHasher.Object);
     }
     
     
@@ -101,15 +101,13 @@ public class TestRegisterCommand
     
     
     [Fact]
-    public async void RegisterCommandHandler_should_register_user()
+    public async void should_register_user()
     {
-       // setup
+        //  Arrange
         mockUserManager.Setup(
                 x => x.CreateAsync(It.IsAny<ApplicationUser>())
             ).ReturnsAsync(IdentityResult.Success);
-        
-        //  Arrange
-        var user = UsersStubs.UserStubs()[0]!;
+      
         
         // Act 
         var result = await _sut.Handle(registerCommand, CancellationToken.None);
@@ -120,12 +118,33 @@ public class TestRegisterCommand
 
    
     
-    
-    
     [Fact]
-    public async void ShouldFailOnRegisterOnDuplicateEmail()
+    public async void Should_fail_on_duplicate_email()
     {
         
+        // arrange 
+        mockUserManager.Setup(
+            x => x.CreateAsync(It.IsAny<ApplicationUser>())
+        ).ReturnsAsync(IdentityResult.Failed(
+            new IdentityError[]
+            {
+                new IdentityErrorDescriber().DuplicateEmail(registerCommand.Email)
+            }));
+        
+        // act 
+        var result = await _sut.Handle(registerCommand, CancellationToken.None);
+        
+        // assert
+        result.IsError.Should().BeTrue();
+        result.ErrorsOrEmptyList.Count.Should().Be(1);
+      
+    }
+
+
+    
+    [Fact]
+    public async void should_return_list_of_identity_error()
+    {
         // arrange 
         mockUserManager.Setup(
             x => x.CreateAsync(It.IsAny<ApplicationUser>())
@@ -136,21 +155,11 @@ public class TestRegisterCommand
                     Description = "error for duplicate emails" }}));
         
         // act 
-        var handler = _sut.Handle(registerCommand, CancellationToken.None);
-        
-        // assert
-
-        handler.IsFaulted.Should().Be(true);
+        var handler = await _sut.Handle(registerCommand, CancellationToken.None);
 
 
-    }
-
-
-    
-    [Fact]
-    public async void ShouldReturnIdentityError()
-    {
-      
+        handler.IsError.Should().BeTrue();
+        handler.ErrorsOrEmptyList.Count.Should().Be(1);
 
     }
 }

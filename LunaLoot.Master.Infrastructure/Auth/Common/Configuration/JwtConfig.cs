@@ -8,7 +8,7 @@ namespace LunaLoot.Master.Infrastructure.Auth;
 
 public static class JwtConfig
 {
-    public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configurationManager)
+    public static IServiceCollection UseJWT(this IServiceCollection services, IConfiguration configurationManager)
     {
         services.AddAuthentication(options =>
         {

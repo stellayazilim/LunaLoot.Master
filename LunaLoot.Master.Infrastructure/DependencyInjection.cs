@@ -1,7 +1,5 @@
 ﻿using LunaLoot.Master.Infrastructure.Auth;
 using LunaLoot.Master.Infrastructure.Persistence.EFCore.Context;
-using LunaLoot.Master.Infrastructure.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,21 +20,8 @@ public static class DependencyInjection
                 throw new InvalidOperationException("Empty connection string")
              );
         });
-
-        services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(opts =>
-            {
-                opts.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<LunaLootMasterDbContext>()
-            .AddSignInManager()
-
-            .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
-            //.AddUserValidator<ApplicationUser>()
-            .AddDefaultTokenProviders()
-            .AddRoles<IdentityRole<Guid>>();
-
-        //services.AddTransient<IPasswordHasher<ApplicationUser>, PasswordHasher>();
-        
-        services.AddJwt(config);
+        services.UseIdentity(config);
+        services.UseJWT(config);
         
         return services;
     }

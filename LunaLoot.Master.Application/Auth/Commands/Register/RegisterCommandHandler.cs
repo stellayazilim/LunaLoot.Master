@@ -1,24 +1,20 @@
 ﻿using ErrorOr;
-using LunaLoot.Master.Domain.User;
-using LunaLoot.Master.Domain.User.ValueObjects;
 using LunaLoot.Master.Infrastructure.Auth;
+using LunaLoot.Master.Infrastructure.Common.Errors;
 using LunaLoot.Master.Infrastructure.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-
 namespace LunaLoot.Master.Application.Auth.Commands.Register;
 
 
-public class RegisterCommandHandler
-(UserManager<ApplicationUser> userManager)
+internal sealed class RegisterCommandHandler
+(UserManager<ApplicationUser> userManager, IPasswordHasher<ApplicationUser> hasher)
     : IRequestHandler<RegisterCommand, ErrorOr<RegisterCommandResult>>
 {
     
     public async Task<ErrorOr<RegisterCommandResult>> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-        var hasher = new PasswordHasher();
+
         var user = new ApplicationUser()
         {
             UserName = request.Email,
@@ -32,6 +28,12 @@ public class RegisterCommandHandler
         user.PasswordHash = hasher.HashPassword(user, request.Password);
 
         var result = await userManager.CreateAsync(user);
-        return result.Succeeded ? new RegisterCommandResult() : result.Errors.ToErrorOr().FirstError;
+
+       
+        if (!result.Succeeded)
+        {
+            return result.Errors.ConvertToErrorOr();
+        }
+        return new RegisterCommandResult();
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 
@@ -19,7 +18,7 @@ public record RegisterCommand(
     : IRequest<ErrorOr<RegisterCommandResult>>;
 
 
-public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
+internal sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
     public RegisterCommandValidator()
     {
