@@ -21,10 +21,10 @@ namespace LunaLoot.Master.Infrastructure.Migrations
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
-                {
+                { 
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
                 });
-
+ 
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new

@@ -24,6 +24,8 @@
 
     <ItemGroup>
       <Folder Include="Auth\Providers\Extensions\" />
+      <Folder Include="Persistence\EFCore\Features\" />
+      <Folder Include="Persistence\EFCore\Utils\" />
     </ItemGroup>
 
     <ItemGroup>
