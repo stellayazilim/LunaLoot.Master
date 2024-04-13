@@ -27,7 +27,6 @@
       <ProjectReference Include="..\LunaLoot.Master.Contracts\LunaLoot.Master.Contracts.csproj" />
       <ProjectReference Include="..\LunaLoot.Master.Domain\LunaLoot.Master.Domain.csproj" />
       <ProjectReference Include="..\LunaLoot.Master.Infrastructure\LunaLoot.Master.Infrastructure.csproj" />
-      <ProjectReference Include="..\__stubs__\__stubs__.csproj" />
     </ItemGroup>
 
 </Project>

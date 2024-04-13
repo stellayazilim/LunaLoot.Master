@@ -1,4 +1,3 @@
-using __stubs__;
 using FluentAssertions;
 using LunaLoot.Master.Application.Auth.Commands.Register;
 using LunaLoot.Master.Domain.User;

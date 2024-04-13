@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using LunaLoot.Master.Infrastructure.Entities;
+using LunaLoot.Master.Infrastructure.Persistence.EFCore.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
