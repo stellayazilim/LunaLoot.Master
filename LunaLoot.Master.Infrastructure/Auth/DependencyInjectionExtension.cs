@@ -17,9 +17,11 @@ public static class DependencyInjectionExtension
                 opts.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<LunaLootMasterDbContext>()
             
+            
             .AddSignInManager()
             // @todo add PasswordValidator 
             //.AddPasswordValidator<ApplicationUser>()
+            .AddUserManager<ApplicationUserManager>()
             .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
             .AddPasswordValidator<ApplicationPasswordValidator>()
             .AddDefaultTokenProviders()

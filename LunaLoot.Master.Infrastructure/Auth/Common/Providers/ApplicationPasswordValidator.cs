@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LunaLoot.Master.Infrastructure.Auth.Common.Providers;
 
-public class ApplicationPasswordValidator
-    (IdentityErrorDescriber? errors = null) : PasswordValidator<ApplicationUser>
+public class ApplicationPasswordValidator(IdentityErrorDescriber? errors = null) : PasswordValidator<ApplicationUser>
 {
     /// <summary>
     /// Gets the <see cref="IdentityErrorDescriber"/> used to supply error text.
     /// </summary>
     /// <value>The <see cref="IdentityErrorDescriber"/> used to supply error text.</value>
-    private new IdentityErrorDescriber Describer { get; } = errors ?? new IdentityErrorDescriber();
+    public new IdentityErrorDescriber Describer { get; } = errors ?? new IdentityErrorDescriber();
 
     /// <summary>
     /// Validates a password as an asynchronous operation.
@@ -23,6 +22,7 @@ public class ApplicationPasswordValidator
     {
         List<IdentityError>? errors = null;
         var options = manager.Options.Password;
+        password = password?.Trim();
         if (string.IsNullOrWhiteSpace(password) || password.Length < options.RequiredLength)
         {
             errors ??= new List<IdentityError>();
@@ -33,22 +33,22 @@ public class ApplicationPasswordValidator
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresNonAlphanumeric());
         }
-        if (options.RequireDigit && (password ?? string.Empty).Any(IsDigit))
+        if (options.RequireDigit && !(password ?? string.Empty).Any(IsDigit))
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresDigit());
         }
-        if (options.RequireLowercase && (password ?? string.Empty).Any(IsLower))
+        if (options.RequireLowercase && !(password ?? string.Empty).Any(IsLower))
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresLower());
         }
-        if (options.RequireUppercase && (password ?? string.Empty).Any(IsUpper))
+        if (options.RequireUppercase && !(password ?? string.Empty).Any(IsUpper))
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresUpper());
         }
-        if (options.RequiredUniqueChars >= 1 && (password ?? string.Empty).Distinct().Count() < options.RequiredUniqueChars)
+        if (options.RequiredUniqueChars >= 1 && ((password ?? string.Empty).Distinct().Count() < options.RequiredUniqueChars))
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresUniqueChars(options.RequiredUniqueChars));

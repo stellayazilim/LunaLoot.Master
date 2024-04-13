@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Castle.Core.Logging;
+using FluentAssertions;
 using LunaLoot.Infrastructure.UnitTests.Features.Auth.__mocks__;
 using LunaLoot.Infrastructure.UnitTests.Features.Auth.Commands.Register.Extensions;
 using LunaLoot.Infrastructure.UnitTests.Features.Auth.Commands.Register.Utils;
@@ -7,6 +8,8 @@ using LunaLoot.Master.Application.Auth.Commands.Register;
 using LunaLoot.Master.Infrastructure.Auth.Common.Providers;
 using LunaLoot.Master.Infrastructure.Persistence.EFCore.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 using Moq;
 using Xunit.Abstractions;
 
@@ -17,7 +20,7 @@ public class RegisterCommandTests
    private readonly ITestOutputHelper _testOutputHelper;
 
 
-   private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
+   private readonly Mock<ApplicationUserManager> _mockUserManager;
 
 
    public RegisterCommandTests(ITestOutputHelper testOutputHelper)
@@ -47,7 +50,7 @@ public class RegisterCommandTests
       #region Arrange
       var handler = new RegisterCommandHandler(
          _mockUserManager.Object, 
-         new ApplicationPasswordHasher());
+         new Logger<RegisterCommandHandler>(new LoggerFactory() ));
       #endregion 
       
       // act
@@ -76,8 +79,7 @@ public class RegisterCommandTests
          var command = RegisterCommandUtils.CreateCommand(null);
       
          var handler = new RegisterCommandHandler(
-            _mockUserManager.Object, 
-            new ApplicationPasswordHasher());
+            _mockUserManager.Object, new Logger<RegisterCommandHandler>(new LoggerFactory()));
          
          _mockUserManager.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
             .ReturnsAsync(
