@@ -11,10 +11,10 @@ namespace LunaLoot.Master.Api.Controllers;
 
 
 [Route("auth")]
-public class Auth(ISender mediator): ApiController
+public class AuthController(ISender mediator, ILogger<AuthController> logger): ApiController
 {
-    
-    
+
+    private readonly ILogger _logger = logger;
     
     [HttpGet("")]
     public string  AuthTest()
@@ -42,10 +42,18 @@ public class Auth(ISender mediator): ApiController
     public async Task<IActionResult> Register(RegisterRequest body)
     {
 
+        _logger.LogInformation("controller");
 
+        if (!ModelState.IsValid)
+        {
+            _logger.LogInformation("model state is invalid");
+            return Problem(statusCode:StatusCodes.Status500InternalServerError);
+        }
         RegisterCommand command = body;
         var result = await mediator.Send(command);
         
+        _logger.LogInformation(result.IsError.ToString());
+        _logger.LogInformation(result.Errors.FirstOrDefault().ToString());
         return Ok();
     }
 }

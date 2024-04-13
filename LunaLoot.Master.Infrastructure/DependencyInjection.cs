@@ -13,6 +13,7 @@ public static class DependencyInjection
             this IServiceCollection services, 
             IConfiguration config)
     {
+        services.AddLogging();
         services.AddDbContext<LunaLootMasterDbContext>(optionsBuilder =>
         {
              optionsBuilder.UseSqlServer(

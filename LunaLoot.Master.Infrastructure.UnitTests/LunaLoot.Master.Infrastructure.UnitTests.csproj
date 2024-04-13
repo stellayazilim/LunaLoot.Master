@@ -23,7 +23,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LunaLoot.Master.Application\LunaLoot.Master.Application.csproj" />
+      <Folder Include="Auth\Providers\Extensions\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LunaLoot.Master.Infrastructure\LunaLoot.Master.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

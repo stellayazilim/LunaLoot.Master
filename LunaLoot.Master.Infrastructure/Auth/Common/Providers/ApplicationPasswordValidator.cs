@@ -3,18 +3,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LunaLoot.Master.Infrastructure.Auth.Common.Providers;
 
-public class ApplicationPasswordValidator: PasswordValidator<ApplicationUser>
+public class ApplicationPasswordValidator(IdentityErrorDescriber? errors = null) : PasswordValidator<ApplicationUser>
 {
-     public ApplicationPasswordValidator(IdentityErrorDescriber? errors = null)
-    {
-        Describer = errors ?? new IdentityErrorDescriber();
-    }
-
     /// <summary>
     /// Gets the <see cref="IdentityErrorDescriber"/> used to supply error text.
     /// </summary>
     /// <value>The <see cref="IdentityErrorDescriber"/> used to supply error text.</value>
-    public IdentityErrorDescriber Describer { get; private set; }
+    public new IdentityErrorDescriber Describer { get; } = errors ?? new IdentityErrorDescriber();
 
     /// <summary>
     /// Validates a password as an asynchronous operation.
@@ -23,36 +18,37 @@ public class ApplicationPasswordValidator: PasswordValidator<ApplicationUser>
     /// <param name="user">The user whose password should be validated.</param>
     /// <param name="password">The password supplied for validation</param>
     /// <returns>The task object representing the asynchronous operation.</returns>
-    public virtual Task<IdentityResult> ValidateAsync(UserManager<ApplicationUser> manager, ApplicationUser user, string? password)
+    public override Task<IdentityResult> ValidateAsync(UserManager<ApplicationUser> manager, ApplicationUser user, string? password)
     {
         List<IdentityError>? errors = null;
         var options = manager.Options.Password;
+        password = password?.Trim();
         if (string.IsNullOrWhiteSpace(password) || password.Length < options.RequiredLength)
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordTooShort(options.RequiredLength));
         }
-        if (options.RequireNonAlphanumeric && password.All(IsLetterOrDigit))
+        if (options.RequireNonAlphanumeric && (password ?? string.Empty).All(IsLetterOrDigit))
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresNonAlphanumeric());
         }
-        if (options.RequireDigit && !password.Any(IsDigit))
+        if (options.RequireDigit && !(password ?? string.Empty).Any(IsDigit))
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresDigit());
         }
-        if (options.RequireLowercase && !password.Any(IsLower))
+        if (options.RequireLowercase && !(password ?? string.Empty).Any(IsLower))
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresLower());
         }
-        if (options.RequireUppercase && !password.Any(IsUpper))
+        if (options.RequireUppercase && !(password ?? string.Empty).Any(IsUpper))
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresUpper());
         }
-        if (options.RequiredUniqueChars >= 1 && password.Distinct().Count() < options.RequiredUniqueChars)
+        if (options.RequiredUniqueChars >= 1 && ((password ?? string.Empty).Distinct().Count() < options.RequiredUniqueChars))
         {
             errors ??= new List<IdentityError>();
             errors.Add(Describer.PasswordRequiresUniqueChars(options.RequiredUniqueChars));
@@ -68,7 +64,7 @@ public class ApplicationPasswordValidator: PasswordValidator<ApplicationUser>
     /// </summary>
     /// <param name="c">The character to check if it is a digit.</param>
     /// <returns>True if the character is a digit, otherwise false.</returns>
-    public virtual bool IsDigit(char c)
+    public override bool IsDigit(char c)
     {
         return c >= '0' && c <= '9';
     }
@@ -78,7 +74,7 @@ public class ApplicationPasswordValidator: PasswordValidator<ApplicationUser>
     /// </summary>
     /// <param name="c">The character to check if it is a lower case ASCII letter.</param>
     /// <returns>True if the character is a lower case ASCII letter, otherwise false.</returns>
-    public virtual bool IsLower(char c)
+    public override bool IsLower(char c)
     {
         return c >= 'a' && c <= 'z';
     }
@@ -88,7 +84,7 @@ public class ApplicationPasswordValidator: PasswordValidator<ApplicationUser>
     /// </summary>
     /// <param name="c">The character to check if it is an upper case ASCII letter.</param>
     /// <returns>True if the character is an upper case ASCII letter, otherwise false.</returns>
-    public virtual bool IsUpper(char c)
+    public override bool IsUpper(char c)
     {
         return c >= 'A' && c <= 'Z';
     }
@@ -98,7 +94,7 @@ public class ApplicationPasswordValidator: PasswordValidator<ApplicationUser>
     /// </summary>
     /// <param name="c">The character to check if it is an ASCII letter or digit.</param>
     /// <returns>True if the character is an ASCII letter or digit, otherwise false.</returns>
-    public virtual bool IsLetterOrDigit(char c)
+    public override bool IsLetterOrDigit(char c)
     {
         return IsUpper(c) || IsLower(c) || IsDigit(c);
     }
