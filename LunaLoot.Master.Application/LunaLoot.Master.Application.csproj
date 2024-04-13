@@ -26,7 +26,7 @@
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>
-                TestLunaLootMasterApplication
+                LunaLoot.Infrastructure.UnitTests
             </_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>

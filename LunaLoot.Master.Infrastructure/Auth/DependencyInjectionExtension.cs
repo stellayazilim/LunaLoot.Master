@@ -1,6 +1,6 @@
-﻿using LunaLoot.Master.Infrastructure.Auth.Common.Services;
-using LunaLoot.Master.Infrastructure.Entities;
+﻿using LunaLoot.Master.Infrastructure.Auth.Common.Providers;
 using LunaLoot.Master.Infrastructure.Persistence.EFCore.Context;
+using LunaLoot.Master.Infrastructure.Persistence.EFCore.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

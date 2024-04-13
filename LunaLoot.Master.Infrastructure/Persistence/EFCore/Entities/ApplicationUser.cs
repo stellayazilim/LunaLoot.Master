@@ -1,11 +1,7 @@
-﻿using Duende.IdentityServer.Models;
-using LunaLoot.Master.Domain.User;
-using LunaLoot.Master.Domain.User.ValueObjects;
+﻿using LunaLoot.Master.Domain.User;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic.CompilerServices;
 
-namespace LunaLoot.Master.Infrastructure.Entities;
+namespace LunaLoot.Master.Infrastructure.Persistence.EFCore.Entities;
 
 public class ApplicationUser: IdentityUser<Guid>, IEquatable<ApplicationUser>
 {
@@ -13,7 +9,7 @@ public class ApplicationUser: IdentityUser<Guid>, IEquatable<ApplicationUser>
     public string FirstName { get; set; }
     
     public string LastName { get; set; }
-    public string[] RefreshTokens { get; set; } 
+    public string[] RefreshTokens { get; set; } = [];
     
     public string? MobilePhoneNumber { get; set; }
     
@@ -35,12 +31,9 @@ public class ApplicationUser: IdentityUser<Guid>, IEquatable<ApplicationUser>
             MobilePhoneNumber = user.MobilePhoneNumber,
             UserName = user.Email,
             RefreshTokens = new string[]{}
-            
         };
     }
 
-    public  User AsUserAggregate()
-    {
-        return new User(new UserId(Id), FirstName, LastName, Email, PasswordHash, MobilePhoneNumber, new List<RoleId>());
-    }
+
+ 
 }

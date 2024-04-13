@@ -23,7 +23,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LunaLoot.Master.Application\LunaLoot.Master.Application.csproj" />
-      <ProjectReference Include="..\__stubs__\__stubs__.csproj" />
     </ItemGroup>
 
 </Project>

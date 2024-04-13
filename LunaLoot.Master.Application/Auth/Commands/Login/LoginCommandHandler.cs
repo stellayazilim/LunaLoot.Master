@@ -1,5 +1,5 @@
 ﻿using ErrorOr;
-using LunaLoot.Master.Infrastructure.Entities;
+using LunaLoot.Master.Infrastructure.Persistence.EFCore.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
