@@ -3,6 +3,7 @@ using LunaLoot.Master.Infrastructure.Auth.Common.Providers;
 using LunaLoot.Master.Infrastructure.UnitTests.Auth.__mocks__;
 using LunaLoot.Master.Infrastructure.UnitTests.Auth.Providers.ProviderUtils;
 using Microsoft.AspNetCore.Identity;
+using LunaLoot.Master.Infrastructure.UnitTests.Auth.Utils;
 using Moq;
 using Xunit.Abstractions;
 
@@ -55,23 +56,34 @@ public class ApplicationPasswordValidatorTests
         )
     {
         // arrange 
-        var passwordValidator = new ApplicationPasswordValidator();
-        var user = AuthUtils.AuthUtils.CreateUser(null);
+        #region arrange
+
+            var passwordValidator = new ApplicationPasswordValidator();
+            var user = AuthUtils.CreateUser(null);
+
+        #endregion
+       
        
         // act
-        var result = await passwordValidator.ValidateAsync(
-            _userManager.Object,
-            user,
-            password);
-        
-        // assert
-        result.Succeeded.Should().BeFalse();
+        #region act
+            var result = await passwordValidator.ValidateAsync(
+                _userManager.Object,
+                user,
+                password);
+        #endregion
 
-        result.Errors.Select((v, i) => (v, i)).ToList().ForEach((v) =>
-        {
-            v.v.Code.Should().Be(expectedResult?.Errors.ToList()[v.i].Code);
-            v.v.Description.Should().Be(expectedResult?.Errors.ToList()[v.i].Description);
-        });
+        // assert
+        #region assert
+
+            result.Succeeded.Should().BeFalse();
+
+            result.Errors.Select((v, i) => (v, i)).ToList().ForEach((v) =>
+            {
+                v.v.Code.Should().Be(expectedResult?.Errors.ToList()[v.i].Code);
+                v.v.Description.Should().Be(expectedResult?.Errors.ToList()[v.i].Description);
+            });
+
+        #endregion
         
     }
 

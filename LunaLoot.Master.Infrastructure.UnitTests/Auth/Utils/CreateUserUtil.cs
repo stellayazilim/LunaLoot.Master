@@ -1,6 +1,7 @@
 ﻿using LunaLoot.Master.Infrastructure.Persistence.EFCore.Entities;
-using LunaLoot.Master.Infrastructure.UnitTests.Auth.Constants;
-namespace LunaLoot.Master.Infrastructure.UnitTests.Auth.AuthUtils;
+
+
+namespace LunaLoot.Master.Infrastructure.UnitTests.Auth.Utils;
 
 public class AuthUtils
 {
