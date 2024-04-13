@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4317F7EF-1EF0-4F9D-B5EF-42B776CAD8C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaLoot.Infrastructure.UnitTests", "LunaLoot.Infrastructure.UnitTests\LunaLoot.Infrastructure.UnitTests.csproj", "{C87C2EB6-7082-4889-8155-3A553FC7B473}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaLoot.Master.Application.UnitTests", "LunaLoot.Master.Application.UnitTests\LunaLoot.Master.Application.UnitTests.csproj", "{C87C2EB6-7082-4889-8155-3A553FC7B473}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
