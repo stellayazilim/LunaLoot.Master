@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4317F7EF-1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaLoot.Master.Application.UnitTests", "LunaLoot.Master.Application.UnitTests\LunaLoot.Master.Application.UnitTests.csproj", "{C87C2EB6-7082-4889-8155-3A553FC7B473}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaLoot.Master.Infrastructure.UnitTests", "LunaLoot.Master.Infrastructure.UnitTests\LunaLoot.Master.Infrastructure.UnitTests.csproj", "{C336B12D-9A86-45F4-AB36-2107BDB9C77E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaLoot.Master.Infrastructure.UnitTests", "LunaLoot.Master.Infrastructure.UnitTests\LunaLoot.Master.Infrastructure.UnitTests.csproj", "{ACC0CB33-7B59-45A8-83E0-9BCC4EBFC95A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,7 +39,7 @@ Global
 		{269F5723-1721-4AA4-B71C-3A31903D8B25} = {4317F7EF-1EF0-4F9D-B5EF-42B776CAD8C4}
 		{B7C8F8DA-B34A-4FFE-80DE-BDCD2E182DE0} = {4317F7EF-1EF0-4F9D-B5EF-42B776CAD8C4}
 		{4AA5A274-37D5-4458-A286-03AB513947AC} = {4317F7EF-1EF0-4F9D-B5EF-42B776CAD8C4}
-		{C336B12D-9A86-45F4-AB36-2107BDB9C77E} = {F243F5EF-7CDC-4EEF-A00C-F294443F9232}
+		{ACC0CB33-7B59-45A8-83E0-9BCC4EBFC95A} = {F243F5EF-7CDC-4EEF-A00C-F294443F9232}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4AA5A274-37D5-4458-A286-03AB513947AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -66,9 +66,9 @@ Global
 		{C87C2EB6-7082-4889-8155-3A553FC7B473}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C87C2EB6-7082-4889-8155-3A553FC7B473}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C87C2EB6-7082-4889-8155-3A553FC7B473}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C336B12D-9A86-45F4-AB36-2107BDB9C77E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C336B12D-9A86-45F4-AB36-2107BDB9C77E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C336B12D-9A86-45F4-AB36-2107BDB9C77E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C336B12D-9A86-45F4-AB36-2107BDB9C77E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC0CB33-7B59-45A8-83E0-9BCC4EBFC95A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC0CB33-7B59-45A8-83E0-9BCC4EBFC95A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC0CB33-7B59-45A8-83E0-9BCC4EBFC95A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC0CB33-7B59-45A8-83E0-9BCC4EBFC95A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
