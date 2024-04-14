@@ -1,5 +1,8 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B5548201_002D1FE1_002D4F8F_002D99C4_002D28F131474938_002Fd_003AAuth_002Fd_003ACommands_002Fd_003ARegister_002Ff_003ARegisterCommandResult_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="C:\Users\akeri\.nuget\packages\automapper\11.0.0\lib\netstandard2.1\AutoMapper.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=LunaLoot_002EMaster_002EInfrastructure_002EMigrations_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=LunaLoot_002EMaster_002EInfrastructure_005CMigrations_005C_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
