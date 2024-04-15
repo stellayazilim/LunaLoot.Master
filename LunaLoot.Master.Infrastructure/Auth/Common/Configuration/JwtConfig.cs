@@ -6,12 +6,11 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace LunaLoot.Master.Infrastructure.Auth;
 
-public static class JwtConfig
+public class JwtConfigExtension
 {
 
 
-    public static  Func<IServiceCollection, IConfigurationManager, IServiceCollection> _useJwt= (service, config) => UseJWT(service, config);
-    public static IServiceCollection UseJWT(this IServiceCollection services, IConfiguration configurationManager)
+    public static void UseJWT(IServiceCollection services, IConfiguration configurationManager)
     {
         services.AddAuthentication(options =>
         {
@@ -39,6 +38,5 @@ public static class JwtConfig
                
             };
         });
-        return services;
     }
 }

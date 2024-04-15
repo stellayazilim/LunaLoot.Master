@@ -24,7 +24,7 @@ public static class DependencyInjectionExtension
              );
         });
         services.UseIdentity(config);
-        services.UseJWT(config);
+        JwtConfigExtension.UseJWT(services, config);
         
         return services;
     }

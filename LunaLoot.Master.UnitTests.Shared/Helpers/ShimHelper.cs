@@ -9,19 +9,13 @@ using System.Runtime.CompilerServices;
 
 public static class ShimHelper
 {
-    public static void Replace<TOriginal, TTarget>()
+    public static void Replace(Type original, Type target)
     {
-        var typeOfOriginal = typeof(TOriginal);
-        Replace<TTarget>(typeOfOriginal);
-    }
-
-    public static void Replace<TTarget>(Type typeOfOriginal)
-    {
-        var targetMethods = GetStaticPublicMethods<TTarget>();
+        var targetMethods = GetStaticPublicMethods(target);
         foreach (var targetMethod in targetMethods)
         {
             var parameters = targetMethod.GetParameters().Select(x => x.ParameterType).ToArray();
-            var originalMethod = typeOfOriginal.GetMethod(targetMethod.Name, parameters);
+            var originalMethod = original.GetMethod(targetMethod.Name, parameters);
             if (originalMethod != null)
             {
                 SwapMethodBodies(originalMethod, targetMethod);
@@ -37,9 +31,10 @@ public static class ShimHelper
         }
     }
 
-    private static List<MethodInfo> GetStaticPublicMethods<T>()
+
+    private static List<MethodInfo> GetStaticPublicMethods(Type t)
     {
-        return typeof(T).GetMethods(BindingFlags.Public | BindingFlags.Static)
+        return t.GetMethods(BindingFlags.Public | BindingFlags.Static)
             .Distinct().ToList();
     }
 
