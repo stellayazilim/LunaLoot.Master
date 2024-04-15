@@ -8,6 +8,9 @@ namespace LunaLoot.Master.Infrastructure.Auth;
 
 public static class JwtConfig
 {
+
+
+    public static  Func<IServiceCollection, IConfigurationManager, IServiceCollection> _useJwt= (service, config) => UseJWT(service, config);
     public static IServiceCollection UseJWT(this IServiceCollection services, IConfiguration configurationManager)
     {
         services.AddAuthentication(options =>
@@ -15,7 +18,8 @@ public static class JwtConfig
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
+        })
+        .AddJwtBearer(options =>
         {
             SecurityKey securityKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(configurationManager.GetSection("Jwt:SigningKey").Value!));
