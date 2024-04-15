@@ -3,8 +3,7 @@ using LunaLoot.Master.Infrastructure.Persistence.EFCore.Entities;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 
-namespace LunaLoot.Master.Application.UnitTests.Features.Auth.__mocks__;
-
+namespace LunaLoot.Master.Infrastructure.UnitTests.__mocks__;
 
 // ReSharper disable once InconsistentNaming
 public static class __Mocks__
@@ -26,10 +25,7 @@ public static class __Mocks__
             
             if (ls is not null)
                 mgr.Setup( x => x.Users).Returns(ls.AsQueryable);
-            mgr.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(),It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Verifiable();
-            mgr.Setup(x => x.DeleteAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success).Verifiable();
-            mgr.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success).Verifiable();
-            mgr.Setup(x => x.UpdateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success).Verifiable();
+         
 
             return mgr;
    

@@ -1,4 +1,4 @@
-﻿namespace LunaLoot.Infrastructure.UnitTests.Utils.Constants;
+﻿namespace LunaLoot.Master.Application.UnitTests.Utils.Constants;
 
 public static partial class Constants
 {

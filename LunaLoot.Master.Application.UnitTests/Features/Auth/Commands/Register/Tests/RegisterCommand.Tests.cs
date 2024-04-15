@@ -1,19 +1,17 @@
-﻿using Castle.Core.Logging;
-using FluentAssertions;
-using LunaLoot.Infrastructure.UnitTests.Features.Auth.__mocks__;
-using LunaLoot.Infrastructure.UnitTests.Features.Auth.Commands.Register.Extensions;
-using LunaLoot.Infrastructure.UnitTests.Features.Auth.Commands.Register.Utils;
-using LunaLoot.Infrastructure.UnitTests.Features.Auth.Utils;
+﻿using FluentAssertions;
 using LunaLoot.Master.Application.Auth.Commands.Register;
+using LunaLoot.Master.Application.UnitTests.Features.Auth.__mocks__;
+using LunaLoot.Master.Application.UnitTests.Features.Auth.Commands.Register.Extensions;
+using LunaLoot.Master.Application.UnitTests.Features.Auth.Commands.Register.Utils;
+using LunaLoot.Master.Application.UnitTests.Features.Auth.Utils;
 using LunaLoot.Master.Infrastructure.Auth.Common.Providers;
 using LunaLoot.Master.Infrastructure.Persistence.EFCore.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
 using Moq;
 using Xunit.Abstractions;
 
-namespace LunaLoot.Infrastructure.UnitTests.Features.Auth.Commands.Register.Tests;
+namespace LunaLoot.Master.Application.UnitTests.Features.Auth.Commands.Register.Tests;
 
 public class RegisterCommandTests
 {

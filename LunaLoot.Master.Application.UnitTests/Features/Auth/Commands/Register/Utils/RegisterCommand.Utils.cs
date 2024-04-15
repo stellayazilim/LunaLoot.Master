@@ -1,7 +1,7 @@
-﻿using LunaLoot.Infrastructure.UnitTests.Utils.Constants;
-using LunaLoot.Master.Application.Auth.Commands.Register;
+﻿using LunaLoot.Master.Application.Auth.Commands.Register;
+using LunaLoot.Master.Application.UnitTests.Utils.Constants;
 
-namespace LunaLoot.Infrastructure.UnitTests.Features.Auth.Commands.Register.Utils;
+namespace LunaLoot.Master.Application.UnitTests.Features.Auth.Commands.Register.Utils;
 
 public static class RegisterCommandUtils
 {

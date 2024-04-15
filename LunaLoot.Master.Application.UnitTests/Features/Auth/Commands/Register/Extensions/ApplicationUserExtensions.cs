@@ -1,7 +1,6 @@
 ﻿using LunaLoot.Master.Infrastructure.Persistence.EFCore.Entities;
-using Xunit.Abstractions;
 
-namespace LunaLoot.Infrastructure.UnitTests.Features.Auth.Commands.Register.Extensions;
+namespace LunaLoot.Master.Application.UnitTests.Features.Auth.Commands.Register.Extensions;
 
 public static class ApplicationUserExtensions
 {
