@@ -6,16 +6,19 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace LunaLoot.Master.Infrastructure.Auth;
 
-public static class JwtConfig
+public class JwtConfigExtension
 {
-    public static IServiceCollection UseJWT(this IServiceCollection services, IConfiguration configurationManager)
+
+
+    public static void UseJWT(IServiceCollection services, IConfiguration configurationManager)
     {
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
+        })
+        .AddJwtBearer(options =>
         {
             SecurityKey securityKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(configurationManager.GetSection("Jwt:SigningKey").Value!));
@@ -35,6 +38,5 @@ public static class JwtConfig
                
             };
         });
-        return services;
     }
 }
