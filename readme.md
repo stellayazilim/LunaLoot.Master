@@ -35,7 +35,7 @@ please refer to our [Contribution Guidelines](./CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the [APGL 2.0](./LICENSE).
+This project is licensed under the [AGPL 2.0](./LICENSE).
 
 ## Acknowledgements
 
