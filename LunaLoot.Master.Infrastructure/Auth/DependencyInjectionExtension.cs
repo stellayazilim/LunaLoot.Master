@@ -7,13 +7,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LunaLoot.Master.Infrastructure.Auth;
 
-public static class DependencyInjectionExtension
+
+
+public static class DependencyInjectionExtensionExtensıon
 {
     public static IServiceCollection UseIdentity(this IServiceCollection services, IConfiguration config)
     {
         
         services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(opts =>
             {
+                
                 opts.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<LunaLootMasterDbContext>()
             

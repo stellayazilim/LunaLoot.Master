@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using LunaLoot.Master.Application.Auth.Commands.Register;
 
-namespace LunaLoot.Infrastructure.UnitTests.Features.Auth.Commands.Register.Extensions;
+namespace LunaLoot.Master.Application.UnitTests.Features.Auth.Commands.Register.Extensions;
 
 public static class RegisterCommandExtensions
 {
